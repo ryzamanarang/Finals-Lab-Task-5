@@ -1,1 +1,268 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Finals Lab Task 5 - Views, Stored Procedures and Functions</title>
+<style>
+/* Loading Animation */
+.loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.loader {
+    width: 100px;
+    height: 100px;
+    border: 5px solid #ff69b4;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+.skull-icon {
+    position: absolute;
+    font-size: 40px;
+    color: #ff69b4;
+    animation: pulse 1s ease-in-out infinite;
+}
+/* Bat burst animation */
+.bat-burst {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    background-image: url('https://media.tenor.com/Npixqj3Ek1IAAAAi/sappy-seals.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    animation: burst 1.5s ease-out forwards;
+    z-index: 9999;
+}
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+@keyframes fadeOut {
+    100% { opacity: 0; visibility: hidden; }
+}
+@keyframes burst {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+@keyframes backgroundScroll {
+    from { background-position: 0 0; }
+    to { background-position: -100% 0; }
+}
+body {
+    cursor: url('https://www.cursor.cc/cursor3d/66307.png') 25 25, auto;
+    background-color: #1a1a1a;
+    color: #ff69b4;
+    font-family: 'Gothic', cursive;
+    margin: 0;
+    padding: 20px;
+    background-image: url('https://i.pinimg.com/736x/6e/23/ed/6e23edac1daba77b52caafff61a4c369.jpg');
+    background-repeat: repeat-x;
+    animation: backgroundScroll 20s linear infinite;
+    background-size: contain;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+h1, h2, h3 {
+    text-align: center;
+    color: #ff1493;
+    text-shadow: 2px 2px 4px #000;
+    font-family: 'Monster High', fantasy;
+}
+.content-section {
+    margin: 30px 0;
+    padding: 20px;
+    background-color: rgba(26, 26, 26, 0.8);
+    border-radius: 10px;
+    border: 2px solid #ff69b4;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.content-section:hover {
+    transform: scale(1.01);
+    box-shadow: 0 0 25px rgba(255, 105, 180, 0.3);
+}
+.step-list {
+    list-style-type: none;
+    padding: 0;
+}
+.step-list li {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: rgba(255, 105, 180, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #ff1493;
+    transition: transform 0.3s, background-color 0.3s;
+}
+.step-list li:hover {
+    transform: translateX(10px);
+    background-color: rgba(255, 105, 180, 0.2);
+}
+.image-container {
+    margin: 20px 0;
+    text-align: center;
+}
+.image-container img {
+    max-width: 100%;
+    border: 3px solid #ff69b4;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+}
+.download-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #ff1493;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    margin: 20px auto;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+}
+.download-btn:hover {
+    background-color: #ff69b4;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.8);
+}
+.download-section {
+    text-align: center;
+}
+</style>
+</head>
+<body>
+<div class="loader-wrapper">
+    <div class="loader"></div>
+    <div class="skull-icon">💀</div>
+</div>
+<div class="container">
+    <h1>Finals Lab Task 5 - Views, Stored Procedures and Functions</h1>
+    <div class="download-section">
+        <a href="https://github.com/user-attachments/files/20127326/Finals.Lab.Task.5.-.Manarang.doc" class="download-btn" target="_blank">
+            Download Word File
+        </a>
+    </div>
+    <div class="content-section">
+        <h2>Step-by-Step Process</h2>
+        <ol>
+            <li><strong>Setup MySQL Workbench:</strong>
+                <ul>
+                    <li>Open XAMPP and start the MySQL server.</li>
+                    <li>Connect MySQL Workbench to the server.</li>
+                    <li>Execute practice queries using the <em>democodes.sql</em> file.</li>
+                </ul>
+            </li>
+            <li><strong>Use Inventory Database:</strong>
+                <ul>
+                    <li>Open the <em>inventory.sql</em> file to begin the tasks.</li>
+                </ul>
+            </li>
+            <li><strong>Create Views:</strong>
+                <ul>
+                    <li>View for vendors and products with in-date from 2002 onward.</li>
+                    <li>View for products priced between 100-150.</li>
+                    <li>View to compute total price of products sold by specific vendors.</li>
+                </ul>
+            </li>
+            <li><strong>Create Stored Procedure:</strong>
+                <ul>
+                    <li>Update vendor name from 'Bryson, Inc.' to 'Bryson and Co'.</li>
+                </ul>
+            </li>
+            <li><strong>Create Function:</strong>
+                <ul>
+                    <li>Display product details based on vendor code and state.</li>
+                </ul>
+            </li>
+            <li><strong>Execute and Document:</strong>
+                <ul>
+                    <li>Run SQL statements and capture screenshots of commands and outputs.</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+    <div class="content-section">
+        <h2>Sample SQL Code & Results</h2>
+        <h3>1. View for Vendors and Products (In-date from 2002)</h3>
+        <div class="image-container">
+            <img src="https://github.com/user-attachments/assets/249275e6-d2f6-4f09-b510-6cd08c9313bd" alt="Create View for Vendors and Products">
+        </div>
+        <p>Output:</p>
+        <div class="image-container">
+            <img src="https://github.com/user-attachments/assets/0bb8bb1d-c472-45c5-9f99-58cefd54edd1" alt="View Output for Vendors and Products">
+        </div>
+        <h3>2. View for Products with Price 100-150</h3>
+        <div class="image-container">
+            <img src="https://github.com/user-attachments/assets/52cc906f-2bee-40ef-8984-bc95d9fc41a2" alt="Create View for Price Range">
+        </div>
+        <p>Output:</p>
+        <div class="image-container">
+            <img src="https://github.com/user-attachments/assets/bddffe46-fd96-445f-bd0e-f393656c5f76" alt="View Output for Price Range">
+        </div>
+        <h3>3. View for Total Price of Products by Specific Vendors</h3>
+        <div class="image-container">
+            <img src="https://github.com/user-attachments/assets/f16c765d-414b-46cf-8126-596e0ac697aa" alt="Create View for Total Price">
+        </div>
+        <p>Output:</p>
+        <div class="image-container">
+            <img src="https://github.com/user-attachments/assets/e4fdd94d-f0e6-4a46-b8d8-d0b599b28af5" alt="Total Price Output">
+        </div>
+        <h3>4. Stored Procedure to Update Vendor Name</h3>
+        <div class="image-container">
+            <img src="https://github.com/user-attachments/assets/1b56e89a-7816-42f7-8b93-00cc7a8ac21f" alt="Create Stored Procedure">
+        </div>
+        <p>Output:</p>
+        <div class="image-container">
+            <img src="https://github.com/user-attachments/assets/9327d62a-d0de-4937-abb5-a986e7eaed9d" alt="Stored Procedure Result">
+        </div>
+        <h3>5. Function for Product Details by Vendor Code and State</h3>
+        <div class="image-container">
+            <img src="https://github.com/user-attachments/assets/8d450dce-b097-43db-b18f-4b1d4b9ebc5e" alt="Create Function">
+        </div>
+        <p>Output:</p>
+        <div class="image-container">
+            <img src="https://github.com/user-attachments/assets/4f949477-bdff-4e72-9a5e-0daef59af771" alt="Function Result">
+        </div>
+    </div>
+</div>
+<script>
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        document.querySelector('.loader-wrapper').style.animation = 'fadeOut 1s ease-out forwards';
+    }, 2000);
+});
+document.addEventListener('click', (e) => {
+    const burst = document.createElement('div');
+    burst.className = 'bat-burst';
+    burst.style.left = `${e.clientX - 30}px`;
+    burst.style.top = `${e.clientY - 30}px`;
+    document.body.appendChild(burst);
+    setTimeout(() => {
+        burst.remove();
+    }, 1500);
+});
+</script>
+</body>
+</html>
